@@ -2,21 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.MaterialMapper">
 
-	<resultMap type="Metarial" id="selectAll">
-		<id property="id" column=id />
+	<resultMap type="Material" id="material">
+		<id property="id" column="m_id" />
+		<result property="name" column="m_name" />
+		<result property="publisher" column="publisher" />
+		<result property="note" column="note" />
+		<result property="created" column="created" />
+		<result property="status" column="status" />
+		<association property="materialTypeId"
+			resultMap="materialType" />
+	</resultMap>
 
+	<resultMap type="MaterialType" id="materialType">
+		<id property="id" column="mt_id" />
+		<result property="name" column="mt_name" />
 	</resultMap>
 
 
-	<select id="">
+	<select id="selectAll" resultMap="material">
 
-		select m.name,publisher,note,mt.name,created,status
+		select m.id as m_id,
+		m.name as
+		m_name,
+		publisher,
+		note,
+		mt.id as mt_id,
+		mt.name as mt_name,
+		created,
+		status
 		from materials m
 		join material_types mt
-		on m.material_type_id = mt.id;
+		on m.material_type_id =
+		mt.id;
+	</select>
 
+	<select id="selectById" parameterType="int" resultMap="material">
+
+		select
+		m.id as m_id,
+		m.name as m_name,
+		publisher,
+		note,
+		mt.name as mt_name,
+		created,
+		status
+		from materials m
+		join material_types mt
+		on
+		m.material_type_id = mt.id
+		where m.id= #{id};
 
 	</select>
+
+	<update id="deleteById" parameterType="int">
+
+		update materials
+		set status = "DEL"
+		where materials.id = #{id};
+
+
+	</update>
+
 
 
 </mapper>

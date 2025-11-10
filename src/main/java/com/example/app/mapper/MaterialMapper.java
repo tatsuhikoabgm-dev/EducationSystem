@@ -1,5 +1,7 @@
 package com.example.app.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.app.domain.Material;
@@ -8,7 +10,9 @@ import com.example.app.domain.Material;
 public interface MaterialMapper {
 
 	
-	Material selectAll();
+	List<Material> selectAll();
+	Material selectById(int id);
+	void deleteById(int id);
 	
 	
 }
