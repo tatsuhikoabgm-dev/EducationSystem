@@ -11,8 +11,12 @@ public interface MaterialMapper {
 
 	
 	List<Material> selectAll();
+	List<Material> selectAllByRow(int offset,int npp);
+	long countAll(); 
 	Material selectById(int id);
 	void deleteById(int id);
-	
+	void addMaterial(Material material);
+	Material searchMaterialByName(Material material);
+	void editMaterial(Material material);
 	
 }

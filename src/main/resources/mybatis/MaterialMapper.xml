@@ -9,7 +9,7 @@
 		<result property="note" column="note" />
 		<result property="created" column="created" />
 		<result property="status" column="status" />
-		<association property="materialTypeId"
+		<association property="materialType"
 			resultMap="materialType" />
 	</resultMap>
 
@@ -32,9 +32,43 @@
 		status
 		from materials m
 		join material_types mt
-		on m.material_type_id =
-		mt.id;
+		on m.material_type_id
+		=mt.id
+		where status = "ACT"
+		order by created desc;
+
 	</select>
+	
+<!--	ページネイション用-->
+	<select id="selectAllByRow" parameterType="long" resultMap="material">
+
+		select m.id as m_id,
+		m.name as
+		m_name,
+		publisher,
+		note,
+		mt.id as mt_id,
+		mt.name as mt_name,
+		created,
+		status
+		from materials m
+		join material_types mt
+		on m.material_type_id
+		=mt.id
+		where status = "ACT"
+		order by created desc
+		limit #{offset},#{npp};
+
+	</select>
+	
+	<select id="countAll" resultType="int">
+	
+	select count(*)
+	from materials
+	where status = "ACT";
+	
+	</select>
+	
 
 	<select id="selectById" parameterType="int" resultMap="material">
 
@@ -43,7 +77,9 @@
 		m.name as m_name,
 		publisher,
 		note,
-		mt.name as mt_name,
+		mt.id as mt_id,
+		mt.name as
+		mt_name,
 		created,
 		status
 		from materials m
@@ -57,12 +93,39 @@
 	<update id="deleteById" parameterType="int">
 
 		update materials
-		set status = "DEL"
+		set status
+		= "DEL"
 		where materials.id = #{id};
-
-
 	</update>
 
+	<insert id="addMaterial" parameterType="Material">
+
+		insert into materials
+		(name,publisher,note,material_type_id)
+		values
+		(#{name},#{publisher},#{note},#{materialType.id});
+
+	</insert>
+
+	<select id="searchMaterialByName" resultMap="material"
+		parameterType="Material">
+
+		select m.name as m_name
+		from materials m
+		where m.name = #{name};
+	</select>
+
+	<update id="editMaterial" parameterType="Material">
+
+		UPDATE materials
+		SET
+		name = #{name},
+		publisher = #{publisher},
+		note = #{note},
+		material_type_id = #{materialType.id}
+		WHERE id = #{id};
+
+	</update>
 
 
 </mapper>
