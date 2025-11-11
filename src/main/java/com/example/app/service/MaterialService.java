@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.app.domain.Material;
+import com.example.app.domain.PageResult;
 import com.example.app.mapper.MaterialMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -21,14 +22,24 @@ public class MaterialService {
 	}
 	
 	//ページネイション用のメソッド
-	public List<Material>selectAllByRow(int offset,int npp){
-		return materialMapper.selectAllByRow(offset, npp);
+	public PageResult selectAllByRow(int page , int size){
+		
+		int totalPage = (int) Math.ceil( (double) materialMapper.countAll() / size);
+		int offset = size * (page -1);
+		
+		int start = Math.max(1, page-1);
+		int end = Math.min(totalPage, start+2);
+		
+		if(end - start < 2) {
+			start = Math.max(1, end-2);
+		}
+		
+		List<Material> result = materialMapper.selectAllByRow(offset, size);
+		return new PageResult(result,page,totalPage,start,end);
+		
+		
 	}
 	
-	public long countAll() {
-		return materialMapper.countAll();
-	}
-
 	
 	
 	

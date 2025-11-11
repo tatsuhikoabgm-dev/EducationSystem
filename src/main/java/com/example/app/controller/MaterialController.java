@@ -38,15 +38,11 @@ public class MaterialController {
 	
 	//P111
 	@GetMapping("/list")
-	public String getListMaterial(@RequestParam(name = "page" ,defaultValue = "1") int page,
+	public String getListMaterial(@RequestParam(defaultValue = "1") int page,
 																Model model) {
-//		model.addAttribute("materials",ms.selectAll());
-		
-		int npp = 5;
-		int totalpage = (int) Math.ceil((double)ms.countAll()/npp);
-		
-		
-		model.addAttribute("materials",ms.selectAllByRow((page-1)*npp, npp));
+
+		//		model.addAttribute("materials",ms.selectAll());		
+		model.addAttribute("materials",ms.selectAllByRow(page, 5));
 		
 		return "/admin/list-material";
 	}

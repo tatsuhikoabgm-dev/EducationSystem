@@ -40,7 +40,7 @@
 	</select>
 	
 <!--	ページネイション用-->
-	<select id="selectAllByRow" parameterType="long" resultMap="material">
+	<select id="selectAllByRow" parameterType="int" resultMap="material">
 
 		select m.id as m_id,
 		m.name as

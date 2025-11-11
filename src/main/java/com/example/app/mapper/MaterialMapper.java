@@ -12,7 +12,7 @@ public interface MaterialMapper {
 	
 	List<Material> selectAll();
 	List<Material> selectAllByRow(int offset,int npp);
-	long countAll(); 
+	int countAll(); 
 	Material selectById(int id);
 	void deleteById(int id);
 	void addMaterial(Material material);

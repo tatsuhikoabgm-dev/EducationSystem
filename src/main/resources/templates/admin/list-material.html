@@ -39,22 +39,37 @@
 						<th>編集</th>
 						<th>削除</th>
 					</tr>
-					<tr th:each="material : ${materials}">
-						<td  ><a th:text="${material.name}" th:href="@{/admin/material/show/{id}(id = ${material.id})}"></a></td>
+					<tr th:each="material : ${materials.result}">
+						<td><a th:text="${material.name}" th:href="@{/admin/material/show/{id}(id=${material.id})}"></a>
+						</td>
 						<td th:text="${material.materialType.name}"></td>
 						<td th:text="${#temporals.format(material.created,'yyyy年MM月dd日(E)hh時mm分ss秒')}"></td>
-						<td><a th:href="@{/admin/material/edit/{id}(id = ${material.id})}" class="btn btn-warning btn-sm">編集</a></td>
-						<td><a th:href="@{/admin/material/delete/{id}(id = ${material.id})}" class="btn btn-danger btn-sm delete">削除</a></td>
+						<td><a th:href="@{/admin/material/edit/{id}(id = ${material.id})}"
+								class="btn btn-warning btn-sm">編集</a></td>
+						<td><a th:href="@{/admin/material/delete/{id}(id = ${material.id})}"
+								class="btn btn-danger btn-sm delete">削除</a></td>
 					</tr>
-					
+
 				</table>
 
 				<ul class="pagination">
-					<li class="page-item disabled"><a class="page-link" href="">&laquo;</a></li>
-					<li class="page-item active"><a class="page-link" href="">1</a></li>
-					<li class="page-item"><a class="page-link" href="">2</a></li>
-					<li class="page-item"><a class="page-link" href="">3</a></li>
-					<li class="page-item"><a class="page-link" href="">&raquo;</a></li>
+					<li class="page-item" th:classappend="${materials.currentPage == 1} ? 'disabled'">
+						<a class="page-link" th:href="@{/admin/material/list(page=1)}">&laquo;</a>
+					</li>
+					<li class="page-item" th:classappend="${materials.currentPage == 1} ? 'disabled'">
+						<a class="page-link"
+							th:href="@{/admin/material/list(page=${materials.currentPage - 1})}">&lt;</a>
+					</li>
+					<li class="page-item" th:each="p : ${#numbers.sequence(materials.startPage, materials.endPage)}"
+						th:classappend="${p == materials.currentPage} ? 'active' : ''">
+						<a class="page-link" th:text="${p}" th:href="@{/admin/material/list(page=${p})}"></a>
+					</li>
+					<li class="page-item" th:classappend="${materials.currentPage == materials.totalPage} ? 'disabled'">
+						<a class="page-link" th:href="@{/admin/material/list(page=${materials.currentPage + 1})}">&gt;</a>
+					</li>
+					<li class="page-item" th:classappend="${materials.currentPage == materials.totalPage} ? 'disabled'">
+						<a class="page-link" th:href="@{/admin/material/list(page=${materials.totalPage})}">&raquo;</a>
+					</li>
 				</ul>
 			</div><!-- /.col- -->
 		</div><!-- /.row -->
