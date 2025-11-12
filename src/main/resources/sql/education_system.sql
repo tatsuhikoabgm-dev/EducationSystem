@@ -83,9 +83,64 @@
 -- ('デザインの原則', '文化出版', '美的感覚を磨く', 3, 'ACT');
 
 
-select m.name,publisher,note,mt.name,created,status
-from materials m
-join material_types mt
-on m.material_type_id = mt.id;
+-- --studentsの作成students
+-- create table students (
+-- id  int primary key,
+-- name char(30) not null,
+-- birthday date not null,
+-- login_id char(30) not null unique collate utf8mb4_ja_0900_as_cs, 
+-- login_pass char(60) not null,
+-- status char(3) default "ACT");
 
-
+-- --ダミーデータ
+-- INSERT INTO students (name, birthday, login_id, login_pass, status) VALUES
+-- ('清水 くみ子', '2004-02-17', 'user01', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('小林 真綾', '2002-06-23', 'user02', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('佐藤 稔', '2001-10-12', 'user03', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('阿部 加奈', '2006-05-03', 'user04', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('山田 裕樹', '2000-12-17', 'user05', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('長谷川 明美', '2006-09-27', 'user06', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('山田 陽子', '2000-03-08', 'user07', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('斎藤 舞', '2004-12-26', 'user08', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('中村 陽子', '2000-09-11', 'user09', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('鈴木 和也', '2004-02-27', 'user10', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('石井 直樹', '2001-12-08', 'user11', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('田中 健一', '2004-02-07', 'user12', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('伊藤 千代', '2003-06-05', 'user13', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('三浦 太郎', '2007-03-28', 'user14', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('佐藤 晃', '2006-10-23', 'user15', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('森 知実', '2003-06-01', 'user16', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('後藤 治', '2006-12-08', 'user17', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('松本 里佳', '2002-02-13', 'user18', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('渡辺 翼', '2004-09-26', 'user19', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('鈴木 陽一', '2001-09-02', 'user20', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('村上 真綾', '2000-03-19', 'user21', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('小川 聡太郎', '2000-11-22', 'user22', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('福田 直人', '2003-02-06', 'user23', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('鈴木 聡太郎', '2002-06-05', 'user24', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('石川 裕太', '2006-08-24', 'user25', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('小林 陽子', '2003-09-13', 'user26', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('田中 晃', '2001-05-26', 'user27', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('山本 舞', '2005-01-08', 'user28', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('伊藤 千代', '2003-02-22', 'user29', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('橋本 太一', '2000-05-29', 'user30', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('佐藤 修平', '2002-01-24', 'user31', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('渡辺 太一', '2000-12-14', 'user32', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('佐藤 陽一', '2003-09-21', 'user33', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('石井 英樹', '2001-03-28', 'user34', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('中島 裕太', '2007-01-09', 'user35', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('伊藤 太郎', '2001-09-30', 'user36', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('山口 くみ子', '2007-05-26', 'user37', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('山田 美加子', '2007-07-06', 'user38', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('岡本 あすか', '2000-10-18', 'user39', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('清水 健一', '2000-07-26', 'user40', '$2a$10$NxhRgFrFGu/k9e5idZErgOKUkKxV0CgP/v3F4mEZd7KmCr8VylFaa', 'ACT'),
+-- ('鈴木 聡太郎', '2004-09-12', 'user41', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('小林 陽子', '2003-02-24', 'user42', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('林 あすか', '2002-06-16', 'user43', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('山本 あすか', '2003-06-20', 'user44', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('坂本 知実', '2006-11-12', 'user45', '$2a$10$93rZQGbC56vU/wl2RZqchO2rJz2qU50AAkRpfogd9MkKZMQoDqqgy', 'ACT'),
+-- ('林 学', '2004-02-08', 'user46', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('佐々木 稔', '2005-03-15', 'user47', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT'),
+-- ('近藤 英樹', '2006-01-17', 'user48', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
+-- ('池田 直子', '2002-10-15', 'user49', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
+-- ('鈴木 加奈', '2002-05-16', 'user50', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT');

@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="col">
 
-				<form class="form" th:object="${form}" th:action="@{/admin/material/{method}(method = ${method})}"
+				<form class="form" th:object="${materialForm}" th:action="@{/admin/material/{method}(method = ${method})}"
 					method="post">
 					<input type="hidden" th:field="*{id}" />
 					<div class="row mb-3">

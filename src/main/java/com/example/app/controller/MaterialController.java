@@ -42,7 +42,7 @@ public class MaterialController {
 																Model model) {
 
 		//		model.addAttribute("materials",ms.selectAll());		
-		model.addAttribute("materials",ms.selectAllByRow(page, 5));
+		model.addAttribute("materials",ms.selectAllByRow(page, 10));
 		
 		return "/admin/list-material";
 	}
@@ -59,28 +59,21 @@ public class MaterialController {
 	//P113
 	@GetMapping("/add")
 	public String getAddForm(Model model) {
-		model.addAttribute("form",new Material());
+		model.addAttribute("materialForm",new Material());
 		model.addAttribute("types",mts.selectAll());
 		model.addAttribute("title","視聴覚教材の追加");
 		model.addAttribute("method","add");
 		
 //		System.out.println(model.getAttribute("form"));
-		return "/admin/add-edit-material";
+		return "/admin/material-form";
 	}
 	
 	//P113
 	@PostMapping("/add")
-	public String addMaterial(@Valid @ModelAttribute("form") Material form,
+	public String addMaterial(@Valid @ModelAttribute("materialForm") Material form,
 														BindingResult result,
 														RedirectAttributes ra,
 														Model model) {
-		//バリデーション判定
-		if(result.hasErrors()) {
-			model.addAttribute("types",mts.selectAll());
-			model.addAttribute("title","視聴覚教材の追加");
-			model.addAttribute("method","add");
-			return "/admin/add-edit-material";
-		}
 		
 		//重複判定
 		if(ms.searchMaterialByName(form)) {
@@ -88,10 +81,18 @@ public class MaterialController {
 			model.addAttribute("title","視聴覚教材の追加");
 			model.addAttribute("method","add");
 			model.addAttribute("msg","同名の教材がすでに存在しています");
-			System.out.println(model.getAttribute("msg"));
-			return "/admin/add-edit-material";
+			return "/admin/material-form";
 		}
 		
+		//バリデーション判定
+		if(result.hasErrors()) {
+			model.addAttribute("types",mts.selectAll());
+			model.addAttribute("title","視聴覚教材の追加");
+			model.addAttribute("method","add");
+			return "/admin/material-form";
+		}
+		
+
 		ms.addMaterial(form);
 		ra.addFlashAttribute("msg","教材を追加しました");
 		
@@ -103,15 +104,15 @@ public class MaterialController {
 	@GetMapping("/edit/{id}")
 	public String getEditForm(@PathVariable("id")int id,
 														Model model) {
-		model.addAttribute("form",ms.selectById(id));
+		model.addAttribute("materialForm",ms.selectById(id));
 		model.addAttribute("types",mts.selectAll());
 		model.addAttribute("title","視聴覚教材の編集");
 		model.addAttribute("method","edit");
-		return "/admin/add-edit-material";
+		return "/admin/material-form";
 	}
 	
 	@PostMapping("/edit")
-	public String editMaterial(@Valid @ModelAttribute("form") Material form,
+	public String editMaterial(@Valid @ModelAttribute("materialForm") Material form,
 														BindingResult result,
 														RedirectAttributes ra,
 														Model model) {

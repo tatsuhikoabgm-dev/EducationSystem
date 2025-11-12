@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.StudentMapper">
+
+
+	<select id="selectAll" resultType="Student">
+
+		select
+		id,name,birthday,login_id,login_pass,status
+		from students
+		where status =
+		"ACT";
+
+	</select>
+
+
+
+
+	<select id="isLoginIdAvailable" resultType="Student">
+
+		select
+		id,name,birthday,login_id,login_pass,status
+		from students
+		where login_id
+		= #{loginId};
+
+	</select>
+
+
+
+	<select id="selectById" resultType="Student">
+	
+		select *
+		from students
+		where id = #{id};
+	
+	</select>
+
+
+
+
+	<insert id="addStudent" parameterType="Student">
+
+		insert into students
+		(name,birthday,login_id,login_pass)
+		values
+		(#{name},#{birthday},#{loginId},#{loginPass});
+
+	</insert>
+
+
+</mapper>
