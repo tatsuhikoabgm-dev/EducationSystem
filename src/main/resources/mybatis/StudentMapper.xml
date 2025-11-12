@@ -8,8 +8,7 @@
 		select
 		id,name,birthday,login_id,login_pass,status
 		from students
-		where status =
-		"ACT";
+		where status ="ACT";
 
 	</select>
 

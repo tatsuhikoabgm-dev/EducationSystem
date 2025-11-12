@@ -83,7 +83,8 @@ public class StudentController {
 														Model model) {
 		
 		model.addAttribute("studentForm",ss.selectById(id));
-		
+		model.addAttribute("method","add");
+		System.out.println(model.getAttribute("studentForm"));
 		return "/admin/student-form";
 	}
 	

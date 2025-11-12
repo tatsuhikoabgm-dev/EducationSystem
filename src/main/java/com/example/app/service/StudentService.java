@@ -20,6 +20,7 @@ public class StudentService {
 		return studentMapper.selectAll();
 	}
 
+	//平文のパスの入ったDTOにハッシュ化したパスワードを詰めなおすメソッド
 	public void addStudent(Student student) {
 
 		String hashed = BCrypt.hashpw(student.getLoginPass(), BCrypt.gensalt());
@@ -27,7 +28,7 @@ public class StudentService {
 		studentMapper.addStudent(student);
 
 	}
-
+	//loginIdの重複があればfalseを返す
 	public boolean isLoginIdAvailable(Student student) {
 
 		if (studentMapper.isLoginIdAvailable(student) != null) {
@@ -41,4 +42,7 @@ public class StudentService {
 		return studentMapper.selectById(id);
 	}
 
+	
+	
+	
 }
