@@ -33,7 +33,7 @@
 					<div class="row mb-3">
 						<label for="loginId" class="col-md-2 col-form-label">ログインID</label>
 						<div class="col-md-10">
-							<input type="text" th:field="*{loginId}" id="loginId" class="form-control">
+							<input type="text" th:field="*{loginId}"  th:attr="readonly=${method == 'edit'}" id="loginId" class="form-control">
 							<div class="error-message mt-2" th:errors="*{loginId}"></div>
 							<div class="error-message mt-2" th:text="${msg}"></div>
 						</div>
@@ -60,7 +60,7 @@
 					<div class="row mb-3">
 						<label for="birthday" class="col-md-2 col-form-label">生年月日</label>
 						<div class="col-md-10">
-							<input type="date" th:field="*{birthday}" id="birthday" class="form-control">
+							<input type="date" th:field="*{birthday}" th:attr="readonly=${method == 'edit'}" id="birthday" class="form-control">
 							<div class="error-message mt-2" th:errors="*{birthday}"></div>
 						</div>
 					</div>
