@@ -144,3 +144,147 @@
 -- ('近藤 英樹', '2006-01-17', 'user48', '$2a$10$SFrFfZbYo0R2TqYgEj9HuOcGKuDwvMJk/JmBcnTC70sPh6f0z8qDe', 'ACT'),
 -- ('池田 直子', '2002-10-15', 'user49', '$2a$10$UyFk3tePV84g7fU6uXmqAeyFMZQnKQtXHKqJ9Kwo8M/XhG0ZgCBH6', 'ACT'),
 -- ('鈴木 加奈', '2002-05-16', 'user50', '$2a$10$DJMOhy0Nf1bUBJK5SlBN.OIdNLR66EZhLZCDfnJ8J0khDStjcP2K.', 'ACT');
+
+
+
+
+
+
+-- -- ☆☆改修版用のテーブルだよっ☆☆
+-- -- ☆☆パスワードは全部 dummy1234 だよ！！☆☆
+
+
+-- create table users(
+-- id bigint not null primary key auto_increment,
+-- login_id varchar(30) not null unique collate utf8mb4_ja_0900_as_cs,
+-- login_pass char(60) not null,
+-- role enum('ADMIN','STUDENT') not null default'STUDENT',
+-- status enum('ACTIVE','INACTIVE') not null default'ACTIVE',
+-- created_at datetime not null default current_timestamp,
+-- updated_at datetime not null default current_timestamp on update current_timestamp)
+-- ENGINE=InnoDB
+-- DEFAULT CHARSET=utf8mb4
+-- COLLATE=utf8mb4_0900_ai_ci;
+
+-- create table students(
+-- id bigint not null primary key auto_increment,
+-- user_id bigint not null,
+-- name varchar(30) not null ,
+-- address varchar(50) not null,
+-- birthday date not null ,
+-- created_at datetime not null default current_timestamp,
+-- updated_at datetime not null default current_timestamp on update current_timestamp,
+-- CONSTRAINT fk_students_user
+--     FOREIGN KEY (user_id) REFERENCES users(id))
+--     ENGINE=InnoDB
+--   DEFAULT CHARSET=utf8mb4
+--   COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- INSERT INTO users (id, login_id, login_pass, role, status, created_at, updated_at) VALUES
+-- (1, 'admin01', '$2a$10$Ci0GdpZfOqFoE5qQ6lJrEOp4XcMdkaVzLS6M5qNOPeZkqsutVQdru', 'ADMIN', 'ACTIVE', NOW(), NOW()),
+-- (2, 'admin02', '$2a$10$L3Hf40J8mGgktTJ/YvG8be0w4k7pq14IFtX2t6dlIjS/QyiG3PXQ2', 'ADMIN', 'ACTIVE', NOW(), NOW()),
+-- (3, 'user003', '$2a$10$GW2Tp8rcC6vu2rtoPhbIuOmKJxS5xAhzO3TOu1DxUnm6FXFrH0mqS', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (4, 'user004', '$2a$10$uM9E0Zt/TW8qLCZpQkaCkeGRc2VOfIedacZ2k2u7ZdQXxxspYDgiK', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (5, 'user005', '$2a$10$BgH8c4K4QfC0z3G5TJsL5O.3qLIItJvUkaUap3BxMeoEU0Xwe43e2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (6, 'user006', '$2a$10$EBrUvGiFa/6CwB74mWNYI.MHCVq1kC.MNQuKXL.LT3JhDqfyBLlRW', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (7, 'user007', '$2a$10$wbvZvFmTaVJ6XyHDysJQe.0ashuHjSbDnv6Mc7rXc8sFl41gDM0pC', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (8, 'user008', '$2a$10$gU2jA4u7eoxMtzlZp2N0mO0ONyJvNfA37nYd0JVHcx9hIFGVbjwEe', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (9, 'user009', '$2a$10$QrEJ9WjqeDutsvKonZWcUOVm/OnemODaS3YZruVJmE0Tcc7yXmVb2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (10,'user010', '$2a$10$TqpTWXywVCHj1ZD2ndd13eWmy6nDXPvZdkwYwcQ1yBPhRVt9HzM/2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+
+-- (11,'user011', '$2a$10$Ci0GdpZfOqFoE5qQ6lJrEOp4XcMdkaVzLS6M5qNOPeZkqsutVQdru', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (12,'user012', '$2a$10$L3Hf40J8mGgktTJ/YvG8be0w4k7pq14IFtX2t6dlIjS/QyiG3PXQ2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (13,'user013', '$2a$10$GW2Tp8rcC6vu2rtoPhbIuOmKJxS5xAhzO3TOu1DxUnm6FXFrH0mqS', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (14,'user014', '$2a$10$uM9E0Zt/TW8qLCZpQkaCkeGRc2VOfIedacZ2k2u7ZdQXxxspYDgiK', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (15,'user015', '$2a$10$BgH8c4K4QfC0z3G5TJsL5O.3qLIItJvUkaUap3BxMeoEU0Xwe43e2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (16,'user016', '$2a$10$EBrUvGiFa/6CwB74mWNYI.MHCVq1kC.MNQuKXL.LT3JhDqfyBLlRW', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (17,'user017', '$2a$10$wbvZvFmTaVJ6XyHDysJQe.0ashuHjSbDnv6Mc7rXc8sFl41gDM0pC', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (18,'user018', '$2a$10$gU2jA4u7eoxMtzlZp2N0mO0ONyJvNfA37nYd0JVHcx9hIFGVbjwEe', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (19,'user019', '$2a$10$QrEJ9WjqeDutsvKonZWcUOVm/OnemODaS3YZruVJmE0Tcc7yXmVb2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (20,'user020', '$2a$10$TqpTWXywVCHj1ZD2ndd13eWmy6nDXPvZdkwYwcQ1yBPhRVt9HzM/2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+
+-- (21,'user021', '$2a$10$Ci0GdpZfOqFoE5qQ6lJrEOp4XcMdkaVzLS6M5qNOPeZkqsutVQdru', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (22,'user022', '$2a$10$L3Hf40J8mGgktTJ/YvG8be0w4k7pq14IFtX2t6dlIjS/QyiG3PXQ2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (23,'user023', '$2a$10$GW2Tp8rcC6vu2rtoPhbIuOmKJxS5xAhzO3TOu1DxUnm6FXFrH0mqS', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (24,'user024', '$2a$10$uM9E0Zt/TW8qLCZpQkaCkeGRc2VOfIedacZ2k2u7ZdQXxxspYDgiK', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (25,'user025', '$2a$10$BgH8c4K4QfC0z3G5TJsL5O.3qLIItJvUkaUap3BxMeoEU0Xwe43e2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (26,'user026', '$2a$10$EBrUvGiFa/6CwB74mWNYI.MHCVq1kC.MNQuKXL.LT3JhDqfyBLlRW', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (27,'user027', '$2a$10$wbvZvFmTaVJ6XyHDysJQe.0ashuHjSbDnv6Mc7rXc8sFl41gDM0pC', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (28,'user028', '$2a$10$gU2jA4u7eoxMtzlZp2N0mO0ONyJvNfA37nYd0JVHcx9hIFGVbjwEe', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (29,'user029', '$2a$10$QrEJ9WjqeDutsvKonZWcUOVm/OnemODaS3YZruVJmE0Tcc7yXmVb2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (30,'user030', '$2a$10$TqpTWXywVCHj1ZD2ndd13eWmy6nDXPvZdkwYwcQ1yBPhRVt9HzM/2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+
+-- (31,'user031', '$2a$10$Ci0GdpZfOqFoE5qQ6lJrEOp4XcMdkaVzLS6M5qNOPeZkqsutVQdru', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (32,'user032', '$2a$10$L3Hf40J8mGgktTJ/YvG8be0w4k7pq14IFtX2t6dlIjS/QyiG3PXQ2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (33,'user033', '$2a$10$GW2Tp8rcC6vu2rtoPhbIuOmKJxS5xAhzO3TOu1DxUnm6FXFrH0mqS', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (34,'user034', '$2a$10$uM9E0Zt/TW8qLCZpQkaCkeGRc2VOfIedacZ2k2u7ZdQXxxspYDgiK', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (35,'user035', '$2a$10$BgH8c4K4QfC0z3G5TJsL5O.3qLIItJvUkaUap3BxMeoEU0Xwe43e2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (36,'user036', '$2a$10$EBrUvGiFa/6CwB74mWNYI.MHCVq1kC.MNQuKXL.LT3JhDqfyBLlRW', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (37,'user037', '$2a$10$wbvZvFmTaVJ6XyHDysJQe.0ashuHjSbDnv6Mc7rXc8sFl41gDM0pC', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (38,'user038', '$2a$10$gU2jA4u7eoxMtzlZp2N0mO0ONyJvNfA37nYd0JVHcx9hIFGVbjwEe', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (39,'user039', '$2a$10$QrEJ9WjqeDutsvKonZWcUOVm/OnemODaS3YZruVJmE0Tcc7yXmVb2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (40,'user040', '$2a$10$TqpTWXywVCHj1ZD2ndd13eWmy6nDXPvZdkwYwcQ1yBPhRVt9HzM/2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+
+-- (41,'user041', '$2a$10$Ci0GdpZfOqFoE5qQ6lJrEOp4XcMdkaVzLS6M5qNOPeZkqsutVQdru', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (42,'user042', '$2a$10$L3Hf40J8mGgktTJ/YvG8be0w4k7pq14IFtX2t6dlIjS/QyiG3PXQ2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (43,'user043', '$2a$10$GW2Tp8rcC6vu2rtoPhbIuOmKJxS5xAhzO3TOu1DxUnm6FXFrH0mqS', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (44,'user044', '$2a$10$uM9E0Zt/TW8qLCZpQkaCkeGRc2VOfIedacZ2k2u7ZdQXxxspYDgiK', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (45,'user045', '$2a$10$BgH8c4K4QfC0z3G5TJsL5O.3qLIItJvUkaUap3BxMeoEU0Xwe43e2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (46,'user046', '$2a$10$EBrUvGiFa/6CwB74mWNYI.MHCVq1kC.MNQuKXL.LT3JhDqfyBLlRW', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (47,'user047', '$2a$10$wbvZvFmTaVJ6XyHDysJQe.0ashuHjSbDnv6Mc7rXc8sFl41gDM0pC', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (48,'user048', '$2a$10$gU2jA4u7eoxMtzlZp2N0mO0ONyJvNfA37nYd0JVHcx9hIFGVbjwEe', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (49,'user049', '$2a$10$QrEJ9WjqeDutsvKonZWcUOVm/OnemODaS3YZruVJmE0Tcc7yXmVb2', 'STUDENT', 'ACTIVE', NOW(), NOW()),
+-- (50,'user050', '$2a$10$TqpTWXywVCHj1ZD2ndd13eWmy6nDXPvZdkwYwcQ1yBPhRVt9HzM/2', 'STUDENT', 'ACTIVE', NOW(), NOW());
+
+-- INSERT INTO students (id, user_id, name, address, birthday, created_at, updated_at) VALUES
+-- (1, 3, '山田 太郎', '東京都新宿区', '2004-01-10', NOW(), NOW()),
+-- (2, 4, '佐藤 花子', '東京都豊島区', '2003-12-05', NOW(), NOW()),
+-- (3, 5, '鈴木 大輝', '東京都練馬区', '2005-02-21', NOW(), NOW()),
+-- (4, 6, '田中 美咲', '東京都世田谷区', '2004-07-13', NOW(), NOW()),
+-- (5, 7, '加藤 陽向', '東京都杉並区', '2003-11-30', NOW(), NOW()),
+-- (6, 8, '小林 心', '東京都中野区', '2004-04-19', NOW(), NOW()),
+-- (7, 9, '吉田 愛', '東京都板橋区', '2005-06-01', NOW(), NOW()),
+-- (8, 10, '山本 翼', '東京都品川区', '2004-09-28', NOW(), NOW()),
+-- (9, 11, '中村 海斗', '東京都大田区', '2003-08-15', NOW(), NOW()),
+-- (10, 12, '林 優衣', '東京都北区', '2004-03-03', NOW(), NOW()),
+-- (11, 13, '清水 楓', '東京都江東区', '2005-06-10', NOW(), NOW()),
+-- (12, 14, '森 拓海', '東京都葛飾区', '2004-05-21', NOW(), NOW()),
+-- (13, 15, '石川 ひなた', '東京都墨田区', '2005-02-17', NOW(), NOW()),
+-- (14, 16, '前田 颯太', '東京都台東区', '2003-09-09', NOW(), NOW()),
+-- (15, 17, '藤田 莉子', '東京都荒川区', '2004-08-12', NOW(), NOW()),
+-- (16, 18, '岡田 優斗', '東京都足立区', '2005-01-29', NOW(), NOW()),
+-- (17, 19, '横山 結衣', '東京都江戸川区', '2004-12-25', NOW(), NOW()),
+-- (18, 20, '村上 陽菜', '東京都中央区', '2004-02-09', NOW(), NOW()),
+-- (19, 21, '樋口 快', '東京都渋谷区', '2003-07-17', NOW(), NOW()),
+-- (20, 22, '三浦 心愛', '東京都港区', '2004-06-06', NOW(), NOW()),
+-- (21, 23, '岡本 樹', '東京都文京区', '2005-01-01', NOW(), NOW()),
+-- (22, 24, '松本 空', '東京都新宿区', '2004-03-22', NOW(), NOW()),
+-- (23, 25, '金子 悠真', '東京都豊島区', '2003-08-28', NOW(), NOW()),
+-- (24, 26, '野村 光', '東京都練馬区', '2005-04-04', NOW(), NOW()),
+-- (25, 27, '原田 美羽', '東京都世田谷区', '2004-07-19', NOW(), NOW()),
+-- (26, 28, '渡辺 陸', '東京都杉並区', '2003-03-11', NOW(), NOW()),
+-- (27, 29, '高橋 花', '東京都中野区', '2005-09-15', NOW(), NOW()),
+-- (28, 30, '青木 璃子', '東京都板橋区', '2004-05-17', NOW(), NOW()),
+-- (29, 31, '堀内 颯真', '東京都品川区', '2003-12-14', NOW(), NOW()),
+-- (30, 32, '黒田 心結', '東京都大田区', '2004-04-08', NOW(), NOW()),
+-- (31, 33, '小松 勇斗', '東京都北区', '2005-06-23', NOW(), NOW()),
+-- (32, 34, '河合 莉央', '東京都江東区', '2004-10-05', NOW(), NOW()),
+-- (33, 35, '浅野 天馬', '東京都葛飾区', '2003-11-01', NOW(), NOW()),
+-- (34, 36, '大西 咲良', '東京都墨田区', '2004-07-07', NOW(), NOW()),
+-- (35, 37, '宮崎 結斗', '東京都台東区', '2005-01-30', NOW(), NOW()),
+-- (36, 38, '塚本 華', '東京都荒川区', '2004-08-28', NOW(), NOW()),
+-- (37, 39, '島田 翔', '東京都足立区', '2003-07-28', NOW(), NOW()),
+-- (38, 40, '永井 涼', '東京都江戸川区', '2004-12-03', NOW(), NOW()),
+-- (39, 41, '桜井 陽香', '東京都中央区', '2005-02-14', NOW(), NOW()),
+-- (40, 42, '谷口 大河', '東京都渋谷区', '2003-11-25', NOW(), NOW()),
+-- (41, 43, '高木 心', '東京都港区', '2004-06-17', NOW(), NOW()),
+-- (42, 44, '竹内 莉愛', '東京都文京区', '2005-05-29', NOW(), NOW()),
+-- (43, 45, '栗原 蒼空', '東京都新宿区', '2003-08-04', NOW(), NOW()),
+-- (44, 46, '平田 優', '東京都豊島区', '2004-07-12', NOW(), NOW()),
+-- (45, 47, '大野 心', '東京都練馬区', '2005-04-20', NOW(), NOW()),
+-- (46, 48, '梅田 優奈', '東京都世田谷区', '2004-09-04', NOW(), NOW()),
+-- (47, 49, '片山 光', '東京都杉並区', '2003-05-16', NOW(), NOW()),
+-- (48, 50, '長谷川 海斗', '東京都中野区', '2004-03-27', NOW(), NOW());
+
+
