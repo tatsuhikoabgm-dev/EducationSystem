@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class Student {
 	private String name;
 	
 	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthday;
 	
 	@NotBlank

@@ -85,7 +85,7 @@
 
 -- --studentsの作成students
 -- create table students (
--- id  int primary key,
+-- id  int primary key auto_increment,
 -- name char(30) not null,
 -- birthday date not null,
 -- login_id char(30) not null unique collate utf8mb4_ja_0900_as_cs, 

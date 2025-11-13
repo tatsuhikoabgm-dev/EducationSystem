@@ -13,6 +13,7 @@ public interface StudentMapper {
 	public void addStudent(Student student);
 	public Student isLoginIdAvailable(Student student);
 	public Student selectById(int id);
+	public void editStudent(Student student);
 	
 	
 }

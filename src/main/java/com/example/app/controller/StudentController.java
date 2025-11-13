@@ -17,80 +17,91 @@ import com.example.app.service.StudentService;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/student")
 public class StudentController {
 
 	private final StudentService ss;
-	
+
 	//P121
 	@GetMapping("/list")
 	public String getListStudent(Model model) {
-		
-		model.addAttribute("students",ss.selectAll());
-		System.out.println(model.getAttribute("students"));
-		
+
+		model.addAttribute("students", ss.selectAll());
+
 		return "/admin/list-student";
 	}
-	
-	
+
 	//P123
 	@GetMapping("/add")
 	public String getAddForm(Model model) {
-		
-		model.addAttribute("studentForm",new Student());
-		model.addAttribute("method","add");
-		model.addAttribute("title","生徒の追加");
-		
+
+		model.addAttribute("studentForm", new Student());
+		model.addAttribute("method", "add");
+		model.addAttribute("title", "生徒の追加");
+
 		return "/admin/student-form";
-		
+
 	}
-	
+
 	//P123
 	@PostMapping("/add")
 	public String addStudent(@Valid @ModelAttribute("studentForm") Student student,
-														BindingResult result,
-														RedirectAttributes ra,
-														Model model) {
-		
-		
-		if(!ss.isLoginIdAvailable(student)) {
-			model.addAttribute("msg","同名のログインID がすでに存在しています。");
-			model.addAttribute("method","add");
-			model.addAttribute("title","生徒の追加");
+			BindingResult result,
+			RedirectAttributes ra,
+			Model model) {
+
+		if (!ss.isLoginIdAvailable(student)) {
+			model.addAttribute("msg", "同名のログインID がすでに存在しています。");
+			model.addAttribute("method", "add");
+			model.addAttribute("title", "生徒の追加");
 			return "/admin/student-form";
 		}
-		
-		if(result.hasErrors()) {
-			
-			model.addAttribute("method","add");
-			model.addAttribute("title","生徒の追加");
+
+		if (result.hasErrors()) {
+			model.addAttribute("method", "add");
+			model.addAttribute("title", "生徒の追加");
 			return "/admin/student-form";
 		}
-		
-		ss.addStudent(student);
-		ra.addFlashAttribute("msg","生徒を追加しました。");
+
+		ss.addStudent(ss.hashedLoginPass(student));
+		ra.addFlashAttribute("msg", "生徒を追加しました。");
 		return "redirect:/admin/student/list";
-		
+
 	}
-	
-	
+
 	//P124
 	@GetMapping("/edit/{id}")
 	public String getEditForm(@PathVariable("id") int id,
-														Model model) {
-		
-		model.addAttribute("studentForm",ss.selectById(id));
-		
+			Model model) {
+
+		model.addAttribute("studentForm", ss.selectById(id));
+		model.addAttribute("method", "edit");
+		model.addAttribute("title","生徒の編集");
 		return "/admin/student-form";
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	//P124
+	@PostMapping("/edit")
+	public String editStudent(@Valid @ModelAttribute("studentForm") Student student,
+															BindingResult result,
+															RedirectAttributes ra,
+															Model model) {
+		System.out.println(student);
+		if(result.hasErrors()) {
+			model.addAttribute("studentForm", student);
+			model.addAttribute("method", "edit");
+			model.addAttribute("title","生徒の編集");
+			System.out.println(result);
+			
+			return "/admin/student-form";
+		}
+		
+		ss.editStudent(ss.hashedLoginPass(student));
+		ra.addFlashAttribute("msg","生徒を編集しました");
+		
+		return "redirect:/admin/student/list";
+	}
+
 }

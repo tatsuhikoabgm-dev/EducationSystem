@@ -8,8 +8,8 @@
 		select
 		id,name,birthday,login_id,login_pass,status
 		from students
-		where status =
-		"ACT";
+		where status
+		="ACT";
 
 	</select>
 
@@ -29,11 +29,11 @@
 
 
 	<select id="selectById" resultType="Student">
-	
+
 		select *
 		from students
 		where id = #{id};
-	
+
 	</select>
 
 
@@ -47,6 +47,16 @@
 		(#{name},#{birthday},#{loginId},#{loginPass});
 
 	</insert>
+
+	<update id="editStudent" parameterType="Student">
+
+		update students
+		set
+		name = #{name},
+		login_pass = #{loginPass}
+		where id = #{id};
+
+	</update>
 
 
 </mapper>

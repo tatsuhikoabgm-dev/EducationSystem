@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="ja">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,12 +27,13 @@
 		<div class="row">
 			<div class="col">
 
-				<form th:object="${studentForm}" class="form" th:action="@{/admin/student/{method}(method=${method})}" method="post">
+				<form th:object="${studentForm}" class="form" th:action="@{/admin/student/{method}(method=${method})}"
+					method="post">
 					<input type="hidden" th:field="*{id}" />
 					<div class="row mb-3">
 						<label for="loginId" class="col-md-2 col-form-label">ログインID</label>
 						<div class="col-md-10">
-							<input type="text" th:field="*{loginId}" id="loginId" class="form-control">
+							<input type="text" th:field="*{loginId}"  th:attr="readonly=${method == 'edit'}" id="loginId" class="form-control">
 							<div class="error-message mt-2" th:errors="*{loginId}"></div>
 							<div class="error-message mt-2" th:text="${msg}"></div>
 						</div>
@@ -40,7 +41,12 @@
 					<div class="row mb-3">
 						<label for="password" class="col-md-2 col-form-label">パスワード</label>
 						<div class="col-md-10">
-							<input type="password" th:field="*{loginPass}" id="password" class="form-control">
+							<div class="input-group">
+								<input type="password" th:field="*{loginPass}" id="password" class="form-control">
+								<button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
+									👁
+								</button>
+							</div>
 							<div class="error-message mt-2" th:errors="*{loginPass}"></div>
 						</div>
 					</div>
@@ -54,7 +60,7 @@
 					<div class="row mb-3">
 						<label for="birthday" class="col-md-2 col-form-label">生年月日</label>
 						<div class="col-md-10">
-							<input type="date" th:field="*{birthday}" id="birthday" class="form-control" value="2000-01-01">
+							<input type="date" th:field="*{birthday}" th:attr="readonly=${method == 'edit'}" id="birthday" class="form-control">
 							<div class="error-message mt-2" th:errors="*{birthday}"></div>
 						</div>
 					</div>
@@ -66,6 +72,17 @@
 		</div><!-- /.row -->
 
 	</div><!-- /.container -->
+	<script>
+		function togglePassword() {
+			const passwordInput = document.getElementById("password");
+			// 現在のtypeを見て切り替える
+			if (passwordInput.type === "password") {
+				passwordInput.type = "text"; // 表示
+			} else {
+				passwordInput.type = "password"; // 非表示
+			}
+		}
+	</script>
 	<script th:src="@{/js/jquery-3.6.1.min.js}"></script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
