@@ -2,14 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.StudentMapper">
 
+<!--	JOINした結果を受け取るためStudentにUserをネストしている
+		-->
+	<resultMap type="Student" id="StudentWithUserMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="address" column="address" />
+		<result property="birthday" column="birthday" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<association property="userId" resultMap="UserMap" />
+	</resultMap>
 
-	<select id="selectAll" resultType="Student">
+	<resultMap type="User" id="UserMap">
+		<id property="id" column="id" />
+		<result property="loginId" column="login_id" />
+		<result property="loginPass" column="login_pass" />
+		<result property="role" column="role" />
+		<result property="status" column="status" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+
+<!--	生徒情報一覧取得-->
+	<select id="findAllStudents" resultMap="StudentWithUserMap">
 
 		select
-		id,name,birthday,login_id,login_pass,status
-		from students
-		where status
-		="ACT";
+		user_id,
+		login_id,
+		name,
+		address,
+		birthday,
+		s.created_at as s_created_at,
+		s.updated_at as
+		s_updated_at
+		from students s
+		join users u
+		on s.user_id = u.id;
+
+	</select>
+
+<!--	生徒情報を一行だけ取得-->
+	<select id="findById" parameterType="int" resultType="Student">
+
+		select
+		user_id,
+		login_id,
+		name,
+		address,
+		birthday,
+		s.created_at as s_created_at,
+		s.updated_at as
+		s_updated_at
+		from students s
+		join users u
+		on s.user_id =u.id
+		where
+		s.user_id = #{id};
 
 	</select>
 
@@ -27,18 +76,6 @@
 	</select>
 
 
-
-	<select id="selectById" resultType="Student">
-
-		select *
-		from students
-		where id = #{id};
-
-	</select>
-
-
-
-
 	<insert id="addStudent" parameterType="Student">
 
 		insert into students
@@ -52,7 +89,8 @@
 
 		update students
 		set
-		name = #{name},
+		name =
+		#{name},
 		login_pass = #{loginPass}
 		where id = #{id};
 

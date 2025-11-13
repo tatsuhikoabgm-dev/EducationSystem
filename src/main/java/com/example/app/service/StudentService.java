@@ -2,10 +2,10 @@ package com.example.app.service;
 
 import java.util.List;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.example.app.domain.Student;
+import com.example.app.domain.StudentListDto;
 import com.example.app.mapper.StudentMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -16,16 +16,22 @@ public class StudentService {
 
 	private final StudentMapper studentMapper;
 
-	public List<Student> selectAll() {
-		return studentMapper.selectAll();
+	//ネストしたentityをDTOに詰めなおす
+	public List<StudentListDto> findAllStudents() {
+		
+		StudentListDto dto = new StudentListDto();
+		
+		dto.setId(studentMapper.findAllStudents);
+		
+		return studentMapper.findAllStudents();
 	}
 
-	//平文のパスの入ったDTOにハッシュ化したパスワードを詰めなおすメソッド
-	public Student hashedLoginPass(Student student) {
-		String hashed = BCrypt.hashpw(student.getLoginPass(), BCrypt.gensalt());
-		student.setLoginPass(hashed);
-		return student;
-	}
+//	//平文のパスの入ったDTOにハッシュ化したパスワードを詰めなおすメソッド
+//	public Student hashedLoginPass(Student student) {
+//		String hashed = BCrypt.hashpw(student.getLoginPass(), BCrypt.gensalt());
+//		student.setLoginPass(hashed);
+//		return student;
+//	}
 	
 	public void addStudent(Student student) {
 		studentMapper.addStudent(student);
@@ -43,8 +49,8 @@ public class StudentService {
 	}
 	
 	
-	public Student selectById(int id) {
-		return studentMapper.selectById(id);
+	public Student findById(int id) {
+		return studentMapper.findById(id);
 	}
 	
 	public void editStudent(Student student) {

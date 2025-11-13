@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
-	
-	
+public class StudentListDto {
+
 	private Integer id;
 	private Integer userId;
 	private String name;
@@ -21,19 +20,5 @@ public class Student {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private User user;
-	
-	
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	
-//	@NotBlank
-//	@Pattern(regexp = "^[a-zA-Z0-9]+$")
-//	@Size(max=30)
-//	private String loginId;
-	
-//	@NotBlank
-//	private String loginPass;
-	
-//	private String status;
-	
 	
 }

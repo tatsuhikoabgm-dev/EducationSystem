@@ -28,7 +28,7 @@ public class StudentController {
 	@GetMapping("/list")
 	public String getListStudent(Model model) {
 
-		model.addAttribute("students", ss.selectAll());
+		model.addAttribute("students", ss.findAllStudents());
 
 		return "/admin/list-student";
 	}
@@ -64,9 +64,9 @@ public class StudentController {
 			model.addAttribute("title", "生徒の追加");
 			return "/admin/student-form";
 		}
-
-		ss.addStudent(ss.hashedLoginPass(student));
-		ra.addFlashAttribute("msg", "生徒を追加しました。");
+//
+//		ss.addStudent(ss.hashedLoginPass(student));
+//		ra.addFlashAttribute("msg", "生徒を追加しました。");
 		return "redirect:/admin/student/list";
 
 	}
@@ -76,7 +76,7 @@ public class StudentController {
 	public String getEditForm(@PathVariable("id") int id,
 			Model model) {
 
-		model.addAttribute("studentForm", ss.selectById(id));
+		model.addAttribute("studentForm", ss.findById(id));
 		model.addAttribute("method", "edit");
 		model.addAttribute("title","生徒の編集");
 		return "/admin/student-form";
@@ -98,7 +98,7 @@ public class StudentController {
 			return "/admin/student-form";
 		}
 		
-		ss.editStudent(ss.hashedLoginPass(student));
+//		ss.editStudent(ss.hashedLoginPass(student));
 		ra.addFlashAttribute("msg","生徒を編集しました");
 		
 		return "redirect:/admin/student/list";
