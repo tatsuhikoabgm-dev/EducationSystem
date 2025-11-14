@@ -26,7 +26,7 @@ public class StudentController {
 
 	//P121
 	@GetMapping("/list")
-	public String getListStudent(Model model) {
+	public String findAllStudents(Model model) {
 
 		model.addAttribute("students", ss.findAllStudents());
 

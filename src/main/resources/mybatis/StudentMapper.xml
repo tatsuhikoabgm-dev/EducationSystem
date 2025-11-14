@@ -2,13 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.StudentMapper">
 
-<!--	JOINした結果を受け取るためStudentにUserをネストしている
-		-->
+	<!-- StudentにuserをネストしてるMap -->
 	<resultMap type="Student" id="StudentWithUserMap">
 		<id property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="address" column="address" />
 		<result property="birthday" column="birthday" />
+		<result property="gender" column="gender" />
+		<result property="entranceDate" column="entranceDate" />
+		<result property="className" column="className" />
+		<result property="clubName" column="clubName" />
+		<result property="phoneNumber" column="phoneNumber" />
 		<result property="createdAt" column="created_at" />
 		<result property="updatedAt" column="updated_at" />
 		<association property="userId" resultMap="UserMap" />
@@ -24,8 +28,17 @@
 		<result property="updatedAt" column="updated_at" />
 	</resultMap>
 
-<!--	生徒情報一覧取得-->
-	<select id="findAllStudents" resultMap="StudentWithUserMap">
+
+
+	<select id="findAllStudents" resultType="Student">
+
+		select id,name,entrance_date,class_name
+		from students;
+
+	</select>
+
+	<!-- ☆SELECT☆　生徒情報一覧取得　studentにuserをネストした情報を取得する -->
+	<select id="findAllStudentWithUser" resultMap="StudentWithUserMap">
 
 		select
 		user_id,
@@ -42,7 +55,7 @@
 
 	</select>
 
-<!--	生徒情報を一行だけ取得-->
+	<!-- 生徒情報を一行だけ取得 -->
 	<select id="findById" parameterType="int" resultType="Student">
 
 		select
@@ -56,7 +69,8 @@
 		s_updated_at
 		from students s
 		join users u
-		on s.user_id =u.id
+		on s.user_id
+		=u.id
 		where
 		s.user_id = #{id};
 

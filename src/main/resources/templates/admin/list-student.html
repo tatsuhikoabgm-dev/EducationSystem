@@ -30,18 +30,18 @@
 					<a th:href="@{/admin/material/list}" class="btn btn-light">視聴覚教材リスト</a>
 				</p>
 				<div class="alert alert-success" th:if="${msg}" th:text="${msg}"></div>
-				<table class="table table-bordered">
+				<table class="table table-bordered table-sm">
 					<tr>
-						<th>ログインID</th>
+						<th>学年</th>
+						<th>クラス</th>
 						<th>氏名</th>
-						<th>生年月日</th>
 						<th>編集</th>
 						<th>削除</th>
 					</tr>
 					<tr th:each="student: ${students}">
-						<td th:text="*{student.loginId}"></td>
+						<td th:text="*{student.grade}"></td>
+						<td th:text="*{student.className}"></td>
 						<td th:text="*{student.name}"></td>
-						<td th:text="*{student.birthday}"></td>
 						<td><a th:href="@{/admin/student/edit/{id}(id=*{student.id})}" class="btn btn-warning btn-sm">編集</a></td>
 						<td><a th:href="@{/admin/student/delete/{id}(id=${student.id})}" class="btn btn-danger btn-sm delete">削除</a></td>
 					</tr>

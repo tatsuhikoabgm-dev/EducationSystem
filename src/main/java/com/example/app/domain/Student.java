@@ -18,6 +18,11 @@ public class Student {
 	private String name;
 	private String address;
 	private LocalDate birthday;
+	private String gender;
+	private LocalDate entranceDate;
+	private String className;
+	private String clubName;
+	private String phoneNumber;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private User user;
